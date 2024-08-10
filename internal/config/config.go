@@ -1,4 +1,4 @@
-package internal
+package config
 
 import (
 	"github.com/Dedo-Finger2/fam-birthday-bot/internal/types"
