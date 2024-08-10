@@ -2,7 +2,10 @@ module github.com/Dedo-Finger2/fam-birthday-bot
 
 go 1.22.6
 
-require github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
+require (
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
+	github.com/spf13/viper v1.19.0
+)
 
 require (
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
