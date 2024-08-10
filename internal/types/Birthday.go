@@ -1,6 +1,6 @@
 package types
 
 type Birthday struct {
-	Date   string
-	People []Person
+	Date   string   `json:"date"`
+	People []Person `json:"people"`
 }

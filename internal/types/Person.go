@@ -1,7 +1,7 @@
 package types
 
 type Person struct {
-	Name       string
-	Age        float64
-	Complement string
+	Name       string  `json:"name"`
+	Age        float64 `json:"agee"`
+	Complement string  `json:"complement"`
 }
