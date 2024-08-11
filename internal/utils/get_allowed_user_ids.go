@@ -11,7 +11,7 @@ func GetAllowedUserIDS() ([]int64, error) {
 
 	allowedIDSFile, err := GetEnvVariable("ALLOWED_CHAT_IDS")
 	if err != nil {
-		return []int64{}, fmt.Errorf("failed on trying to get .env varible %w", err)
+		return []int64{}, fmt.Errorf("failed on trying to get .env variable %w", err)
 	}
 
 	IDSString := strings.Split(allowedIDSFile, "|")

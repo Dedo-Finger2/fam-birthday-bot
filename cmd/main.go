@@ -20,7 +20,7 @@ func main() {
 		now := time.Now().Local()
 
 		if now.Hour() == 5 {
-			birthdates, err := utils.GetBirthdays()
+			birthDates, err := utils.GetBirthdays()
 			if err != nil {
 				slog.Error("Error trying to get birthdays.", "error", err)
 				os.Exit(1)
@@ -28,9 +28,9 @@ func main() {
 
 			currentDateDDMM := utils.GetCurrentDateDDMM()
 
-			for _, birthdate := range birthdates {
-				if birthdate.Date == currentDateDDMM {
-					utils.SendMessage(birthdate.Date, bot)
+			for _, birthDate := range birthDates {
+				if birthDate.Date == currentDateDDMM {
+					utils.SendMessage(birthDate.Date, bot)
 					break
 				}
 			}

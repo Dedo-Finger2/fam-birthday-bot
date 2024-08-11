@@ -10,7 +10,7 @@ import (
 )
 
 func GetBirthdays() ([]types.Birthday, error) {
-	var birhtdaysPaylod struct {
+	var birthdaysPayload struct {
 		Dates []types.Birthday `json:"dates"`
 	}
 
@@ -24,10 +24,10 @@ func GetBirthdays() ([]types.Birthday, error) {
 		return []types.Birthday{}, fmt.Errorf("failed to read file birthdays.json. %w", err)
 	}
 
-	err = json.Unmarshal(birthdaysFile, &birhtdaysPaylod)
+	err = json.Unmarshal(birthdaysFile, &birthdaysPayload)
 	if err != nil {
 		return []types.Birthday{}, fmt.Errorf("failed to Unmarshal json file. %w", err)
 	}
 
-	return birhtdaysPaylod.Dates, nil
+	return birthdaysPayload.Dates, nil
 }
