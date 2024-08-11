@@ -19,6 +19,7 @@ func main() {
 	}
 
 	for {
+		isBirthday := false
 		now := time.Now().Local()
 
 		if now.Hour() == 5 {
@@ -33,11 +34,16 @@ func main() {
 			for _, birthDate := range birthDates {
 				if birthDate.Date == currentDateDDMM {
 					utils.SendMessage(birthDate.Date, bot)
+					isBirthday = true
 					break
 				}
 			}
 
-			slog.Info("Messages sent! Next validation in 24 hours.")
+			if isBirthday {
+				slog.Info("Messages sent! Next validation in 24 hours.")
+			} else {
+				slog.Info("There is not birthday today... Next validation in 24 hours.")
+			}
 			time.Sleep(time.Hour * 24)
 		} else if now.Hour() > 5 {
 			birthDates, err := utils.GetBirthdays()
@@ -51,6 +57,7 @@ func main() {
 			for _, birthDate := range birthDates {
 				if birthDate.Date == currentDateDDMM {
 					utils.SendMessage(birthDate.Date, bot)
+					isBirthday = true
 					break
 				}
 			}
@@ -66,7 +73,11 @@ func main() {
 
 			timeUntilNextValidation := nextDay.Sub(currentDate)
 
-			slog.Info(fmt.Sprintf("Messages sent! Next validation in %0.f hours and %0.f minutes.", math.Floor(timeUntilNextValidation.Hours()), math.Floor(timeUntilNextValidation.Minutes()/60)))
+			if isBirthday {
+				slog.Info(fmt.Sprintf("Messages sent! Next validation in %0.f hours and %0.f minutes.", math.Floor(timeUntilNextValidation.Hours()), math.Floor(timeUntilNextValidation.Minutes()/60)))
+			} else {
+				slog.Info(fmt.Sprintf("There is not birthday today... Next validation in %0.f hours and %0.f minutes.", math.Floor(timeUntilNextValidation.Hours()), math.Floor(timeUntilNextValidation.Minutes()/60)))
+			}
 			time.Sleep(timeUntilNextValidation)
 		} else {
 			slog.Warn("it is not 5 am yet, waiting 1 minute before trying again...")
