@@ -5,8 +5,8 @@ import (
 	"time"
 )
 
-func GetCurrentDateDDMM() string {
+func GetCurrentDateMMDD() string {
 	currentDate := strings.Split(strings.Split(time.Now().Local().String(), " ")[0], "-")[1:]
-	formattedDate := currentDate[1] + "-" + currentDate[0]
+	formattedDate := strings.Join(currentDate, "-")
 	return formattedDate
 }

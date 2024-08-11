@@ -26,7 +26,7 @@ func main() {
 				os.Exit(1)
 			}
 
-			currentDateDDMM := utils.GetCurrentDateDDMM()
+			currentDateDDMM := utils.GetCurrentDateMMDD()
 
 			for _, birthDate := range birthDates {
 				if birthDate.Date == currentDateDDMM {
