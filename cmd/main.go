@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"log/slog"
+	"math"
 	"os"
 	"time"
 
@@ -37,6 +39,35 @@ func main() {
 
 			slog.Info("Messages sent! Next validation in 24 hours.")
 			time.Sleep(time.Hour * 24)
+		} else if now.Hour() > 5 {
+			birthDates, err := utils.GetBirthdays()
+			if err != nil {
+				slog.Error("Error trying to get birthdays.", "error", err)
+				os.Exit(1)
+			}
+
+			currentDateDDMM := utils.GetCurrentDateMMDD()
+
+			for _, birthDate := range birthDates {
+				if birthDate.Date == currentDateDDMM {
+					utils.SendMessage(birthDate.Date, bot)
+					break
+				}
+			}
+
+			currentDate := time.Now().Local()
+			var (
+				nextDayHour    = 4
+				nextDayMinutes = 58
+				nextDayMili    = 0
+				nextDayNano    = 0
+			)
+			nextDay := time.Date(currentDate.Year(), currentDate.Month(), currentDate.Day()+1, nextDayHour, nextDayMinutes, nextDayMili, nextDayNano, currentDate.Location())
+
+			timeUntilNextValidation := nextDay.Sub(currentDate)
+
+			slog.Info(fmt.Sprintf("Messages sent! Next validation in %0.f hours and %0.f minutes.", math.Floor(timeUntilNextValidation.Hours()), math.Floor(timeUntilNextValidation.Minutes()/60)))
+			time.Sleep(timeUntilNextValidation)
 		} else {
 			slog.Warn("it is not 5 am yet, waiting 1 minute before trying again...")
 			time.Sleep(time.Minute)
