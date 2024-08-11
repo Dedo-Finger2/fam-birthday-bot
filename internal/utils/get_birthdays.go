@@ -14,12 +14,12 @@ func GetBirthdays() ([]types.Birthday, error) {
 		Dates []types.Birthday `json:"dates"`
 	}
 
-	currentDir, err := GetCurrentDir()
+	rootDir, err := GetRootDir()
 	if err != nil {
 		return []types.Birthday{}, err
 	}
 
-	birthdaysFile, err := os.ReadFile(path.Join(currentDir, "internal", "config", "birthdays.json"))
+	birthdaysFile, err := os.ReadFile(path.Join(rootDir, "internal", "config", "birthdays.json"))
 	if err != nil {
 		return []types.Birthday{}, fmt.Errorf("failed to read file birthdays.json. %w", err)
 	}
