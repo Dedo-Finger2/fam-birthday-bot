@@ -2,14 +2,13 @@ package utils
 
 import (
 	"fmt"
-	"os"
 	"path"
 
 	"github.com/spf13/viper"
 )
 
 func GetEnvVariable(key string) (string, error) {
-	absPath, err := os.Getwd()
+	absPath, err := GetRootDir()
 	if err != nil {
 		return "", fmt.Errorf("failed to get current working directory: %w", err)
 	}
