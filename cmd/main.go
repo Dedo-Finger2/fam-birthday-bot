@@ -2,6 +2,7 @@ package main
 
 import (
 	"log/slog"
+	"os"
 	"time"
 
 	"github.com/Dedo-Finger2/fam-birthday-bot/internal/config"
@@ -9,13 +10,22 @@ import (
 )
 
 func main() {
-	bot := config.SetupBot()
+	bot, err := config.SetupBot()
+	if err != nil {
+		slog.Error("Error trying to create a new bot API.", "error", err)
+		return
+	}
 
 	for {
 		now := time.Now().Local()
 
-		if now.Hour() == 19 && now.Minute() == 15 {
-			birthdates := utils.GetBirthdays()
+		if now.Hour() == 5 {
+			birthdates, err := utils.GetBirthdays()
+			if err != nil {
+				slog.Error("Error trying to get birthdays.", "error", err)
+				os.Exit(1)
+			}
+
 			currentDateDDMM := utils.GetCurrentDateDDMM()
 
 			for _, birthdate := range birthdates {

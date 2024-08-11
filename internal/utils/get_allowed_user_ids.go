@@ -1,25 +1,29 @@
 package utils
 
 import (
-	"encoding/json"
-	"os"
-	"path"
+	"fmt"
+	"strconv"
+	"strings"
 )
 
-func GetAllowedUserIDS() []int64 {
-	var allowedUsersPayload struct {
-		IDS []int64 `json:"allowed_ids"`
-	}
+func GetAllowedUserIDS() ([]int64, error) {
+	allowedUsersPayload := []int64{}
 
-	allowedIDSFile, err := os.ReadFile(path.Join(GetCurrentDir(), "internal", "config", "allowed_user_ids.json"))
+	allowedIDSFile, err := GetEnvVariable("ALLOWED_CHAT_IDS")
 	if err != nil {
-		panic(err)
+		return []int64{}, fmt.Errorf("Failed on trying to get .env varible. %w", err)
 	}
 
-	err = json.Unmarshal(allowedIDSFile, &allowedUsersPayload)
-	if err != nil {
-		panic(err)
+	IDSString := strings.Split(allowedIDSFile, "|")
+
+	for _, id := range IDSString {
+		convertedID, err := strconv.Atoi(id)
+		if err != nil {
+			return []int64{}, fmt.Errorf("Failed to convert id '%s' to int64.", id)
+		}
+
+		allowedUsersPayload = append(allowedUsersPayload, int64(convertedID))
 	}
 
-	return allowedUsersPayload.IDS
+	return allowedUsersPayload, nil
 }

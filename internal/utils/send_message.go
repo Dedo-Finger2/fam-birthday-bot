@@ -8,15 +8,22 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-func SendMessage(date string, bot *tgbotapi.BotAPI) {
-	allowedUserIDS := GetAllowedUserIDS()
+func SendMessage(date string, bot *tgbotapi.BotAPI) error {
+	allowedUserIDS, err := GetAllowedUserIDS()
+	if err != nil {
+		return err
+	}
+
 	currentDate := time.Now().Local().Format(time.DateOnly)
 
-	users := GetUserNameComplement(date)
+	userNameComplements, err := GetUserNameComplement(date)
+	if err != nil {
+		return err
+	}
 
 	messageText := fmt.Sprintf("*🎊 Hoje, %s, temos aniversariantes! 🎊* \n\n*Não esqueça* de desejar feliz aniversário para: \n\n*%s*",
 		currentDate,
-		strings.Join(users, "\n"),
+		strings.Join(userNameComplements, "\n"),
 	)
 
 	for _, userID := range allowedUserIDS {
@@ -26,4 +33,6 @@ func SendMessage(date string, bot *tgbotapi.BotAPI) {
 
 		bot.Send(message)
 	}
+
+	return nil
 }

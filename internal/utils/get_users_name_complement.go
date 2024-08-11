@@ -1,9 +1,14 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func GetUserNameComplement(date string) []string {
-	birthdates := GetBirthdays()
+func GetUserNameComplement(date string) ([]string, error) {
+	birthdates, err := GetBirthdays()
+	if err != nil {
+		return []string{}, err
+	}
 
 	people := []string{}
 
@@ -17,5 +22,5 @@ func GetUserNameComplement(date string) []string {
 		}
 	}
 
-	return people
+	return people, nil
 }

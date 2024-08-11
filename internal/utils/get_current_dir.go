@@ -1,11 +1,14 @@
 package utils
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
-func GetCurrentDir() string {
+func GetCurrentDir() (string, error) {
 	currentDir, err := os.Getwd()
 	if err != nil {
-		panic(err)
+		return "", fmt.Errorf("Failed to get current directory. %w", err)
 	}
-	return currentDir
+	return currentDir, nil
 }
