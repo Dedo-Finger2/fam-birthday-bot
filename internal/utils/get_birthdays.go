@@ -21,12 +21,12 @@ func GetBirthdays() ([]types.Birthday, error) {
 
 	birthdaysFile, err := os.ReadFile(path.Join(currentDir, "internal", "config", "birthdays.json"))
 	if err != nil {
-		return []types.Birthday{}, fmt.Errorf("Failed to read file birthdays.json. %w", err)
+		return []types.Birthday{}, fmt.Errorf("failed to read file birthdays.json. %w", err)
 	}
 
 	err = json.Unmarshal(birthdaysFile, &birhtdaysPaylod)
 	if err != nil {
-		return []types.Birthday{}, fmt.Errorf("Failed to Unmarshal json file. %w", err)
+		return []types.Birthday{}, fmt.Errorf("failed to Unmarshal json file. %w", err)
 	}
 
 	return birhtdaysPaylod.Dates, nil
