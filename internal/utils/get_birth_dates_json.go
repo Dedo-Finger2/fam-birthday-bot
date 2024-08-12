@@ -10,9 +10,7 @@ import (
 )
 
 func GetBirthDatesJson() ([]types.BirthDate, error) {
-	var birthDatePayload struct {
-		Dates []types.BirthDate `json:"dates"`
-	}
+	var birthDatePayload types.BirthDatesPayload
 
 	rootDir, err := GetRootDir()
 	if err != nil {

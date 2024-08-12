@@ -9,9 +9,7 @@ import (
 )
 
 func GetBirthDatesYaml() ([]types.BirthDate, error) {
-	var yamlDatePayload struct {
-		Dates []types.BirthDate `yaml:"dates"`
-	}
+	var birthDatePayload types.BirthDatesPayload
 
 	rootDir, err := GetRootDir()
 	if err != nil {
@@ -23,10 +21,10 @@ func GetBirthDatesYaml() ([]types.BirthDate, error) {
 		return []types.BirthDate{}, err
 	}
 
-	err = yaml.Unmarshal(yamlFile, &yamlDatePayload)
+	err = yaml.Unmarshal(yamlFile, &birthDatePayload)
 	if err != nil {
 		return []types.BirthDate{}, err
 	}
 
-	return yamlDatePayload.Dates, nil
+	return birthDatePayload.Dates, nil
 }
