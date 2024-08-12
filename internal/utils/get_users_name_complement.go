@@ -5,7 +5,7 @@ import (
 )
 
 func GetUserNameComplement(date string) ([]string, error) {
-	birthDates, err := GetBirthdays()
+	birthDates, err := GetBirthDatesJson()
 	if err != nil {
 		return []string{}, err
 	}

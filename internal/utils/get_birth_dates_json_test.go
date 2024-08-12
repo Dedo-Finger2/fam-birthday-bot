@@ -6,10 +6,10 @@ import (
 	"github.com/Dedo-Finger2/fam-birthday-bot/internal/utils"
 )
 
-func TestGetBirthdays(t *testing.T) {
-	output, err := utils.GetBirthdays()
+func TestGetBirthDatesJson(t *testing.T) {
+	output, err := utils.GetBirthDatesJson()
 	if err != nil {
-		t.Errorf("failed to get birthdays: %s", err)
+		t.Errorf("failed to get birth dates: %s", err)
 	}
 
 	expect := len(output) > 0

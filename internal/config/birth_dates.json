@@ -1,0 +1,14 @@
+{
+  "dates": [
+    {
+      "date": "99-99",
+      "people": [
+        {
+          "name": "Test",
+          "age": 0,
+          "complement": "test complement"
+        }
+      ]
+    }
+  ]
+}

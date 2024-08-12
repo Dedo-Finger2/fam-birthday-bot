@@ -23,7 +23,7 @@ func main() {
 		now := time.Now().Local()
 
 		if now.Hour() == 5 {
-			birthDates, err := utils.GetBirthdays()
+			birthDates, err := utils.GetBirthDatesJson()
 			if err != nil {
 				slog.Error("Error trying to get birthdays.", "error", err)
 				os.Exit(1)
@@ -46,7 +46,7 @@ func main() {
 			}
 			time.Sleep(time.Hour * 24)
 		} else if now.Hour() > 5 {
-			birthDates, err := utils.GetBirthdays()
+			birthDates, err := utils.GetBirthDatesJson()
 			if err != nil {
 				slog.Error("Error trying to get birthdays.", "error", err)
 				os.Exit(1)
