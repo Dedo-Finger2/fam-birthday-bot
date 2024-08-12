@@ -14,6 +14,7 @@ func CheckCurrentHourCron(hour int, bot *tgbotapi.BotAPI) {
 
 	switch {
 	case hour == 5:
+		// TODO: Change it to Yaml func
 		birthDates, err := GetBirthDatesJson()
 		if err != nil {
 			slog.Error("Error trying to get birthdays.", "error", err)
@@ -30,6 +31,7 @@ func CheckCurrentHourCron(hour int, bot *tgbotapi.BotAPI) {
 
 		time.Sleep(time.Hour * 24) // 1 day
 	case hour > 5:
+		// TODO: Change it to Yaml func
 		birthDates, err := GetBirthDatesJson()
 		if err != nil {
 			slog.Error("Error trying to get birthdays.", "error", err)
