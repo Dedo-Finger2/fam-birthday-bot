@@ -7,12 +7,11 @@ import (
 
 type getHowManyHoursUntil5AMOutput struct {
 	Hour         float64
-	Minutes      float64
+	Minutes      int
 	CompleteTime time.Duration
 }
 
-func GetHowManyHoursUntil5AM() getHowManyHoursUntil5AMOutput {
-	currentDate := time.Now().Local()
+func GetHowManyHoursUntil5AM(currentDate time.Time) getHowManyHoursUntil5AMOutput {
 	var (
 		nextDayHour    = 4
 		nextDayMinutes = 58
@@ -25,7 +24,7 @@ func GetHowManyHoursUntil5AM() getHowManyHoursUntil5AMOutput {
 
 	output := getHowManyHoursUntil5AMOutput{
 		Hour:         math.Floor(timeUntil5AM.Hours()),
-		Minutes:      math.Floor(timeUntil5AM.Minutes() / 60),
+		Minutes:      int(timeUntil5AM.Minutes()) % 60,
 		CompleteTime: timeUntil5AM,
 	}
 
