@@ -7,7 +7,7 @@
 	<img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" />
 </p>
 
-<p align="center">🚀 Receba <strong>notificações</strong> das <strong>datas de aniversário</strong> e pessoas queridas no <strong>Telegram</strong>! 🚀</p>
+<p align="center">🚀 Receba <strong>notificações</strong> das <strong>datas de aniversário</strong> de pessoas queridas no <strong>Telegram</strong>! 🚀</p>
 
 ---
 
