@@ -3,7 +3,6 @@ package utils
 import (
 	"fmt"
 	"log/slog"
-	"math"
 	"os"
 	"time"
 
@@ -29,7 +28,7 @@ func CheckCurrentHourCron(hour int, bot *tgbotapi.BotAPI) {
 			slog.Info("There is not birthday today... Next validation in 24 hours.")
 		}
 
-		time.Sleep(time.Hour * 24)
+		time.Sleep(time.Hour * 24) // 1 day
 	case hour > 5:
 		birthDates, err := GetBirthDatesJson()
 		if err != nil {
@@ -39,23 +38,15 @@ func CheckCurrentHourCron(hour int, bot *tgbotapi.BotAPI) {
 
 		HandleSendingMessageToUsers(birthDates, bot, &isBirthday)
 
-		currentDate := time.Now().Local()
-		var (
-			nextDayHour    = 4
-			nextDayMinutes = 58
-			nextDayMili    = 0
-			nextDayNano    = 0
-		)
-		nextDay := time.Date(currentDate.Year(), currentDate.Month(), currentDate.Day()+1, nextDayHour, nextDayMinutes, nextDayMili, nextDayNano, currentDate.Location())
-
-		timeUntilNextValidation := nextDay.Sub(currentDate)
+		timeUntilNextValidation := GetHowManyHoursUntil5AM()
 
 		if isBirthday {
-			slog.Info(fmt.Sprintf("Messages sent! Next validation in %0.f hours and %0.f minutes.", math.Floor(timeUntilNextValidation.Hours()), math.Floor(timeUntilNextValidation.Minutes()/60)))
+			slog.Info(fmt.Sprintf("Messages sent! Next validation in %0.f hours and %0.f minutes.", timeUntilNextValidation.Hour, timeUntilNextValidation.Minutes))
 		} else {
-			slog.Info(fmt.Sprintf("There is not birthday today... Next validation in %0.f hours and %0.f minutes.", math.Floor(timeUntilNextValidation.Hours()), math.Floor(timeUntilNextValidation.Minutes()/60)))
+			slog.Info(fmt.Sprintf("There is not birthday today... Next validation in %0.f hours and %0.f minutes.", timeUntilNextValidation.Hour, timeUntilNextValidation.Minutes))
 		}
-		time.Sleep(timeUntilNextValidation)
+
+		time.Sleep(timeUntilNextValidation.CompleteTime)
 	default:
 		slog.Warn("It is not 5 am yet, waiting 1 minute before trying again...")
 		time.Sleep(time.Minute)
