@@ -2,7 +2,12 @@
 
 ![](https://github.com/Dedo-Finger2/fam-birthday-bot/blob/master/public/images/cover.png?raw=true)
 
-<p align="center">Receba <strong>notificações</strong> das <strong>datas de aniversário</strong> e pessoas queridas no <strong>Telegram</strong>!</p>
+<p align="center">
+	<img src="https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white" />
+	<img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" />
+</p>
+
+<p align="center">🚀 Receba <strong>notificações</strong> das <strong>datas de aniversário</strong> e pessoas queridas no <strong>Telegram</strong>! 🚀</p>
 
 ---
 
