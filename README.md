@@ -1,5 +1,7 @@
 ## FamBirthdayBot
 
+---
+
 ## 📔 Descrição
 
 Este projeto se consiste em um bot no Telegram que será responsável por enviar uma mensagem para alguns usuários específicos sempre às 5 da manhã contendo um aviso do possível aniversariante do dia. Sempre às 5 da manhã o bot fará uma validação de uma lista de aniversariantes, se a data atual da validação bater com a data de alguma pessoa listada na lista de aniversariantes, então este nome será registrado em outra lista de aniversariantes. Posteriormente será enviada com uma mensagem padrão avisando que hoje é aniversário de X, Y e Z.
@@ -35,7 +37,7 @@ O objetivo deste projeto é ajudar, especialmente, meu pai a lembrar das datas d
 
 ### Fluxograma
 
-![]()
+![](https://github.com/Dedo-Finger2/fam-birthday-bot/blob/master/public/images/diagram.png?raw=true)
 
 ### 🖿 Estrutura de pastas
 
