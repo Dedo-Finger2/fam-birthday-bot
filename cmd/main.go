@@ -24,7 +24,7 @@ func init() {
 func main() {
 	// INF Loop
 	for {
-		currentHour := time.Now().Local().Hour()
-		utils.CheckCurrentHourCron(currentHour, bot)
+		currentTime := time.Now().Local()
+		utils.CheckCurrentHourCron(currentTime, bot)
 	}
 }
