@@ -21,15 +21,7 @@ func CheckCurrentHourCron(hour int, bot *tgbotapi.BotAPI) {
 			os.Exit(1)
 		}
 
-		currentDateDDMM := GetCurrentDateMMDD()
-
-		for _, birthDate := range birthDates {
-			if birthDate.Date == currentDateDDMM {
-				SendMessage(birthDate.Date, bot)
-				isBirthday = true
-				break
-			}
-		}
+		HandleSendingMessageToUsers(birthDates, bot, &isBirthday)
 
 		if isBirthday {
 			slog.Info("Messages sent! Next validation in 24 hours.")
@@ -45,15 +37,7 @@ func CheckCurrentHourCron(hour int, bot *tgbotapi.BotAPI) {
 			os.Exit(1)
 		}
 
-		currentDateDDMM := GetCurrentDateMMDD()
-
-		for _, birthDate := range birthDates {
-			if birthDate.Date == currentDateDDMM {
-				SendMessage(birthDate.Date, bot)
-				isBirthday = true
-				break
-			}
-		}
+		HandleSendingMessageToUsers(birthDates, bot, &isBirthday)
 
 		currentDate := time.Now().Local()
 		var (
