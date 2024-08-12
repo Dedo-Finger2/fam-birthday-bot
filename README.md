@@ -1,4 +1,8 @@
-## FamBirthdayBot
+# 🎂 FamBirthday Bot 🤖
+
+![](https://github.com/Dedo-Finger2/fam-birthday-bot/blob/master/public/images/cover.png?raw=true)
+
+<p align="center">Receba <strong>notificações</strong> das <strong>datas de aniversário</strong> e pessoas queridas no <strong>Telegram</strong>!</p>
 
 ---
 
