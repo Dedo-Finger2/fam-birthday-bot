@@ -9,8 +9,9 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-func CheckCurrentHourCron(hour int, bot *tgbotapi.BotAPI) {
+func CheckCurrentHourCron(currentDate time.Time, bot *tgbotapi.BotAPI) {
 	isBirthday := false
+	hour := currentDate.Hour()
 
 	switch {
 	case hour == 5:
@@ -40,12 +41,12 @@ func CheckCurrentHourCron(hour int, bot *tgbotapi.BotAPI) {
 
 		HandleSendingMessageToUsers(birthDates, bot, &isBirthday)
 
-		timeUntilNextValidation := GetHowManyHoursUntil5AM()
+		timeUntilNextValidation := GetHowManyHoursUntil5AM(currentDate)
 
 		if isBirthday {
-			slog.Info(fmt.Sprintf("Messages sent! Next validation in %0.f hours and %0.f minutes.", timeUntilNextValidation.Hour, timeUntilNextValidation.Minutes))
+			slog.Info(fmt.Sprintf("Messages sent! Next validation in %0.f hours and %d minutes.", timeUntilNextValidation.Hour, timeUntilNextValidation.Minutes))
 		} else {
-			slog.Info(fmt.Sprintf("There is not birthday today... Next validation in %0.f hours and %0.f minutes.", timeUntilNextValidation.Hour, timeUntilNextValidation.Minutes))
+			slog.Info(fmt.Sprintf("There is not birthday today... Next validation in %0.f hours and %d minutes.", timeUntilNextValidation.Hour, timeUntilNextValidation.Minutes))
 		}
 
 		time.Sleep(timeUntilNextValidation.CompleteTime)
