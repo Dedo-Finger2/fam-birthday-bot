@@ -9,15 +9,22 @@ import (
 
 	"github.com/Dedo-Finger2/fam-birthday-bot/internal/config"
 	"github.com/Dedo-Finger2/fam-birthday-bot/internal/utils"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-func main() {
-	bot, err := config.SetupBot()
+var bot *tgbotapi.BotAPI
+
+func init() {
+	var err error
+
+	bot, err = config.SetupBot()
 	if err != nil {
 		slog.Error("Error trying to create a new bot API.", "error", err)
 		return
 	}
+}
 
+func main() {
 	for {
 		isBirthday := false
 		now := time.Now().Local()
