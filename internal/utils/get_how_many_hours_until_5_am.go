@@ -13,8 +13,8 @@ type getHowManyHoursUntil5AMOutput struct {
 
 func GetHowManyHoursUntil5AM(currentDate time.Time) getHowManyHoursUntil5AMOutput {
 	var (
-		nextDayHour    = 4
-		nextDayMinutes = 58
+		nextDayHour    = 5
+		nextDayMinutes = 0
 		nextDayMili    = 0
 		nextDayNano    = 0
 	)
