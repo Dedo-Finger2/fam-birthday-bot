@@ -28,8 +28,6 @@ func CheckCurrentHourCron(currentDate time.Time, bot *tgbotapi.BotAPI) {
 		} else {
 			slog.Info("There is not birthday today... Next validation in 24 hours.")
 		}
-
-		time.Sleep(time.Hour * 24) // 1 day
 	case hour > 5:
 		birthDates, err := GetBirthDatesYaml()
 		if err != nil {
@@ -46,10 +44,7 @@ func CheckCurrentHourCron(currentDate time.Time, bot *tgbotapi.BotAPI) {
 		} else {
 			slog.Info(fmt.Sprintf("There is not birthday today... Next validation in %0.f hours and %d minutes.", timeUntilNextValidation.Hour, timeUntilNextValidation.Minutes))
 		}
-
-		time.Sleep(timeUntilNextValidation.CompleteTime)
 	default:
 		slog.Warn("It is not 5 am yet, waiting 1 minute before trying again...")
-		time.Sleep(time.Minute)
 	}
 }
