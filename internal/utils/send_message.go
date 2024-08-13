@@ -8,12 +8,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-func SendMessage(date string, bot *tgbotapi.BotAPI) error {
-	allowedUserIDS, err := GetAllowedUserIDS()
-	if err != nil {
-		return err
-	}
-
+func SendMessage(date string, bot *tgbotapi.BotAPI, allowedUserIDS []int64) error {
 	currentDate := time.Now().Local().Format(time.DateOnly)
 
 	userNameComplements, err := GetUserNameComplement(date)
