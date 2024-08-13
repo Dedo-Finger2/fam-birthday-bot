@@ -1,7 +1,9 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
+	"log/slog"
 	"strings"
 	"time"
 
@@ -10,6 +12,7 @@ import (
 
 func SendMessage(date string, bot *tgbotapi.BotAPI, allowedUserIDS []int64) error {
 	currentDate := time.Now().Local().Format(time.DateOnly)
+	failedMessage := map[int64]string{}
 
 	userNameComplements, err := GetUserNameComplement(date)
 	if err != nil {
@@ -26,7 +29,15 @@ func SendMessage(date string, bot *tgbotapi.BotAPI, allowedUserIDS []int64) erro
 		message.AllowSendingWithoutReply = true
 		message.ParseMode = "markdown"
 
-		bot.Send(message)
+		_, err := bot.Send(message)
+		if err != nil {
+			slog.Warn("Failed to send message.", "error", err)
+			failedMessage[userID] = err.Error()
+		}
+	}
+
+	if len(failedMessage) > 0 {
+		return errors.New("failed to send messages to some users")
 	}
 
 	return nil
