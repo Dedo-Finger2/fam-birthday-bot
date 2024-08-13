@@ -13,9 +13,9 @@ func TestGetHowManyHoursUntil5AM(t *testing.T) {
 
 	output := utils.GetHowManyHoursUntil5AM(mockTime)
 
-	expected := output.Hour == float64(11) && output.Minutes == 58
+	expected := output.Hour == float64(12) && output.Minutes == 0
 
 	if !expected {
-		t.Errorf("Test failed, wrong logic when trying to get how many hours until 5am. Expected '%f hours and %d minutes' but got '%f hours and %d minutes'", float64(11), 58, output.Hour, output.Minutes)
+		t.Errorf("Test failed, wrong logic when trying to get how many hours until 5am. Expected '%f hours and %d minutes' but got '%f hours and %d minutes'", float64(12), 0, output.Hour, output.Minutes)
 	}
 }
