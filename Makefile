@@ -1,5 +1,7 @@
 test:
 	go test -v ./...
+test-coverage:
+	go test -v -cover ./...
 dev:
 	go run ./cmd/main.go
 build-linux-amd:
