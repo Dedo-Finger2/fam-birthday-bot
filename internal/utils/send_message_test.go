@@ -10,11 +10,11 @@ import (
 func TestSendMessage(t *testing.T) {
 	userIDS, err := utils.GetTestingAllowedUserIDS()
 	if err != nil {
-		t.Fail()
+		t.Errorf("Failed to get user allowed ids: %s", err.Error())
 	}
 	bot, err := config.SetupBot()
 	if err != nil {
-		t.Fail()
+		t.Errorf("Failed to setup bot: %s", err.Error())
 	}
 
 	if err = utils.SendMessage("99-99", bot, userIDS); err != nil {
