@@ -25,6 +25,34 @@ Se a data atual bater com uma data no arquivo YAML, então todas as pessoas dent
 
 O objetivo deste projeto é auxiliar o usuário que frequentemente esquece as datas de aniversário de pessoas conhecidas através do envio de mensagens no Telegram as 5 horas da manhã sempre que houver um aniversariante no dia. Dando assim tempo para o usuário dar feliz aniversário para esta pessoa.
 
+## Como usar
+
+Clone the repo
+```bash
+git clone https://github.com/Dedo-Finger2/fam-birthday-bot.git
+```
+
+Creates the birthdates config file
+```bash
+cp internal/config/birth_dates.example.yml internal/config/birth_dates.yml
+```
+
+Creates the .env file
+`OBS: The TESTING_CHAT_ID can be your chat id`
+```bash
+cp .env.example .env
+```
+
+Execute the tests
+```bash
+make test
+```
+
+Runs the application
+```bash
+make dev
+```
+
 ## ⚠️ Requisitos
 
 ### Funcionais
