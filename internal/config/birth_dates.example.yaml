@@ -1,0 +1,13 @@
+dates:
+  - date: "99-99"
+    people:
+      - name: "Teste"
+        age: 0
+        complement: "Teste complement"
+      - name: "Teste 2"
+        age: 0
+        complement: "Teste complement 2"
+      - name: "Teste 3"
+        age: 0
+        complement: "Teste complement 3"
+
