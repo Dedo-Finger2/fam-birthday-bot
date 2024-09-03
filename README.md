@@ -13,34 +13,47 @@
 
 ## 📔 Descrição
 
-Este projeto se consiste em um bot no Telegram que será responsável por enviar uma mensagem para alguns usuários específicos sempre às 5 da manhã contendo um aviso do possível aniversariante do dia. Sempre às 5 da manhã o bot fará uma validação de uma lista de aniversariantes, se a data atual da validação bater com a data de alguma pessoa listada na lista de aniversariantes, então este nome será registrado em outra lista de aniversariantes. Posteriormente será enviada com uma mensagem padrão avisando que hoje é aniversário de X, Y e Z.
+O Fam Birthday Bot é um cron job que roda um sistema de mensageria feito em Golang, integrando com a API do Telegram para criar um bot. 
+
+Este bot é usado para enviar mensagens para uma lista de usuários com permissão de receber suas mensagens, e isso é definido em um arquivo .env. Com isso vem o cron job, que está configurado para rodar sempre as 5 horas da manhã de diariamente, nesse processo o sistema faz uma validação indo ao banco de dados. Que atualmente é um arquivo de configuração em YAML, e itera sobre todas as datas presentes lá. Cada data possui um array de pessoas, e cada pessoa possui nome, idade e complemento.
+
+| O complemento serve para identificar pessoas com nomes iguais. Diferenciando eles.
+
+Se a data atual bater com uma data no arquivo YAML, então todas as pessoas dentro do array de pessoas daquela data fazem aniversário no dia. Então é pego o complemento e nome das pessoas e enviado com uma mensagem pre-feita para os usuários com permissão de receber mensagens do bot. Depois disso o sistema entra em hiato por 24 horas, fazendo a validação apenas 24 horas depois.
 
 ## 🎯 Objetivo
 
-O objetivo deste projeto é ajudar, especialmente, meu pai a lembrar das datas de aniversário de pessoas da família ou amigos próximos dele. Inicialmente o projeto será apenas dedicado e cadastrado e usado pelo meu pai, mas futuramente poderei escalar o projeto para o mesmo poder ser usado por outros integrantes da família, tornando a aplicação em uma espécie de intra-net da família.
+O objetivo deste projeto é auxiliar o usuário que frequentemente esquece as datas de aniversário de pessoas conhecidas através do envio de mensagens no Telegram as 5 horas da manhã sempre que houver um aniversariante no dia. Dando assim tempo para o usuário dar feliz aniversário para esta pessoa.
 
 ## ⚠️ Requisitos
 
 ### Funcionais
 
-- [x] Deve ser possível fazer envio de mensagens para N contatos mediante um bot no Telegram;
-- [x] O sistema deve funcionar independente do ano na hora da validação;
-- [x] Deve ser possível lidar com casos onde há mais de um aniversariante no dia da validação;
-- [x] Deve ser possível validar se alguém está fazendo aniversário no dia da validação;
-- [x] O sistema deve listar o nome e complemento dos aniversariantes;
+- [x] O sistema deve poder enviar mensagens para uma lista de usuários
+- [x] O sistema deve usar um cron job para executar a validação de data em um determinado horário dia
+- [x] O sistema deve poder integrar com a API do Telegram
+- [x] O sistema deve poder enviar as mensagens através de um bot no Telegram
+- [x] O sistema deve poder lidar com casos onde hajam mais de um aniversariante no dia, formatando a mensagem template para encaixar mais de um nome
+- [x] O sistema só deve mandar mensagem para uma lista seleta de usuários com permissão para receber as mensagens
+- [x] Deve ser usado um arquivo YAML para configuração
+- [x] Deve ser usado um arquivo JSON para testes
 
 ### Não funcionais
 
 - [ ] Deve haver um QR code para acessar o Bot no Telegram;
-- [x] O sistema deve constar com um subsistema de logs feitos a nível de linha de comando;
+- [ ] O sistema deve constar com um subsistema de logs feitos a nível de linha de comando;
 - [ ] Deve existir um Google Forms que seja capaz de coletar dados para serem usados no sistema;
+- [x] Log de erros durante o envio de mensagens
+- [x] Segurança dos dados do bot e do nome dos aniversariantes
+- [x] Performance para lidar com vários envios sem sobrecarregar o servidor
+
 
 ### Regras de negócio
 
-- [x] As mensagens só devem ser enviadas caso haja algum aniversariante no dia da validação;
-- [x] As mensagens não podem ser enviadas mais de uma vez no mesmo dia;
-- [x] As mensagens só devem ser enviadas às 5 da manhã;
 - [x] As mensagens só devem ser enviadas para IDs cadastrados no sistema;
+- [x] A validação de data deve ser feita apenas uma vez por dia
+- [x] As mensagens só devem ser enviadas caso haja um match com uma data de aniversário e a data atual da validação
+- [x] Caso não hajam aniversariantes no dia o sistema deve aguardar 24 horas para validar novamente as datas
 
 ## ⚒️ Infraestrutura
 
@@ -51,23 +64,38 @@ O objetivo deste projeto é ajudar, especialmente, meu pai a lembrar das datas d
 ### 🖿 Estrutura de pastas
 
 ```markdown
-  - cmd/
-  	- main.go
-  - internal/
-	  - config/
-	  - types/
-	  - utils/
-  go.mod
-  go.sum
+- builds/
+  - fam-birthdate-amd
+  - fam-birthdate-arm
+  - fam-birthdate.exe
+- cmd/
+  - main.go
+- internal/
+    - config/
+      - birth_dates.yml
+      - birth_dates.json
+      - bot.go
+    - types/
+    - utils/
+- public
+  - images/
+Makefile
+README.md
+LICENSE
+go.mod
+go.sum
 ```
 
 ### 🖥️ Tecnologias
 
-|Biblioteca|Versão|Utilidade na aplicação|
-|---|---|---|
-|telegram-bot-api|5.5.1|Comunicação com a API do Telegram usando a linguagem Go|
-|viper|1.19|Carregamento de variáveis de ambiente mediante um arquivo .env|
-|go|1.22.6|Linguagem de programação usada no projeto|
+| Tech             | Utilidade                                                    | Versão |
+| :--------------- | :----------------------------------------------------------- | :----- |
+| Golang           | Linguagem de programação usada                               | 1.22.6 |
+| Neovim           | Editor de código via terminal                                | 10     |
+| tgbotapi         | API do Telegram                                              | 5.5.1  |
+| robfig/cron      | Biblioteca para criação de cron jobs em Golang               | 3.0.1  |
+| viper            | Biblioteca para trabalho com variáveis de ambiente em Golang | 1.19.0 |
+| gopkg.in/yaml.v3 | Biblioteca para trabalho com arquivos YAML em Golang         | 3.0.1  |
 
 ## 🌐 Implementações futuras
 
